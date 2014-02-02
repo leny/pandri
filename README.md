@@ -1,6 +1,6 @@
 # [pandri](http://github.com/leny/pandri)
 
-[![Build Status](https://secure.travis-ci.org/Leny/pandri.png?branch=master)](http://travis-ci.org/Leny/pandri)
+[![Build Status](https://secure.travis-ci.org/leny/pandri.png?branch=master)](http://travis-ci.org/leny/pandri)
 
 In-memory key/value store, with json file backup.
 
