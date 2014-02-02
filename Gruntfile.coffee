@@ -6,16 +6,10 @@ module.exports = ( grunt ) ->
 
     grunt.initConfig
         coffee:
-            lib:
-                expand: yes
-                cwd: "src/"
-                src: [
-                    "**/*.litcoffee"
-                ]
-                dest: "lib/"
-                ext: ".js"
-                options:
-                    bare: yes
+            options:
+                bare: yes
+            files:
+                "lib/pandri.js": "./README.coffee.md"
         jshint:
             options:
                 reporter: require "jshint-stylish"
@@ -29,7 +23,7 @@ module.exports = ( grunt ) ->
         watch:
             lib:
                 files: [
-                    "src/**/*.litcoffee"
+                    "./README.coffee.md"
                 ]
                 tasks: [
                     "coffee"
