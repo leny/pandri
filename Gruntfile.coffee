@@ -6,10 +6,8 @@ module.exports = ( grunt ) ->
 
     grunt.initConfig
         coffee:
-            options:
-                bare: yes
             files:
-                "lib/pandri.js": "./README.coffee.md"
+                "lib/pandri.js": "src/pandri.litcoffee"
         jshint:
             options:
                 reporter: require "jshint-stylish"
@@ -23,7 +21,7 @@ module.exports = ( grunt ) ->
         watch:
             lib:
                 files: [
-                    "./README.coffee.md"
+                    "src/pandri.litcoffee"
                 ]
                 tasks: [
                     "coffee"
