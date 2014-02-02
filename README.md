@@ -12,6 +12,12 @@ started at 02/02/14
 
 * * *
 
+## HEY ! Watch here ! A note !
+
+**pandri** is in development, not yet published on npm.
+
+* * *
+
 ## Getting Started
 
 Install the module with: `npm install pandri`
