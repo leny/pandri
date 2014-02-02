@@ -18,7 +18,7 @@ Install the module with: `npm install pandri`
 
 Create a store (a *json* object representation *in-memory*) with `var store = new Pandri( "name" )`.
 
-> TODO finish "getting started" documentation.
+> TODO "getting started" documentation.
 
 ## Documentation
 
