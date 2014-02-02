@@ -58,7 +58,7 @@ Return the name of the store, use to find it in in-memory storage.
 
 Return the `path` used for `load()` and `save()` operations.
 
-#### store.hasChanges
+#### store.hasChange
 
 Return `true` if some change has been made since the last `load()` or `save()`.
 
@@ -114,9 +114,10 @@ Delete the `key` from the store.
 ### store.save( [ path [, callback ] ] )
 
 Store the data in the json `path`. The `path` is stored in `store.path`. If no path are given, the path from `store.path` is used.
+The save operation is only performed if `store.hasChange` is `true`
 
         save: ( path = no, callback = no ) ->
-            if not @hasCHange
+            if not @hasChange
                 return if not callback then yes else callback null, @
             @path = path ? @path
             fs.writeFile @path, JSON.stringify( _content ), ( err ) ->
