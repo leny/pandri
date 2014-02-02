@@ -97,7 +97,12 @@ Return the (beautified or not) data of the store as json.
         @get: ( name ) ->
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality.
+
+Lint and test your code using [Grunt](http://gruntjs.com/).
+
+The **pandri** lib is an unique file, the present `README.md` file, compiled in `javascrip` as a *literate coffeescript* file. 
 
 ## Release History
 
