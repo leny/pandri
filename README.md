@@ -12,27 +12,13 @@ started at 02/02/14
 
 * * *
 
-## HEY ! Watch here ! A note !
-
-**pandri** is in development, not yet published on npm.
-
-* * *
-
-## Getting Started
-
-Install the module with: `npm install pandri`
-
-Create a store (a *json* object representation *in-memory*) with `var store = new Pandri( "name" )`.
-
-> TODO "getting started" documentation.
-
 ## Documentation
 
 > This README is a *literate coffeescript* file, containing the documentation AND the code.
 
     fs = require "fs"
 
-All the stores are stored in a private variable called _stores, the in-memory storage. :)
+All the stores are stored in a private variable called _stores, the *in-memory storage*. :)
 
     _stores = {}
 
@@ -48,11 +34,13 @@ Create and return a **pandri store** object.
 
         constructor: ( @name, @path = no, callback = no ) ->
 
+Store the instance inside the in-memory storage.
+
+            _stores[ @name ] = @
+
 #### store.name
 
 Return the name of the store, use to find it in in-memory storage.
-
-            _stores[ @name ] = @
 
 #### store.path
 
@@ -74,6 +62,8 @@ Load a json file inside the store.
 If the file doesn't exists, it will be create at the first call of `store.save()`.
 The `path` is stored in `store.path`.
 
+The callback will receive two parameters : `error` (if an error occures, unless it will be `null`), and `store`, the current store instance.
+
         load: ( path, callback = no ) ->
             @path = path ? @path
             readOptions =
@@ -89,7 +79,7 @@ The `path` is stored in `store.path`.
 
 ### store.get( key )
 
-Return the value associated to the `key` in the store.
+Return the value associated to the `key` in the store, or `null` if it doesn't exists.
 
         get: ( key ) ->
             _content[ key ] ? null
@@ -113,7 +103,9 @@ Delete the `key` from the store.
 ### store.save( [ path [, callback ] ] )
 
 Store the data in the json `path`. The `path` is stored in `store.path`. If no path are given, the path from `store.path` is used.
-The save operation is only performed if `store.hasChange` is `true`
+The save operation is only performed if `store.hasChange` is `true`.
+
+The callback will receive two parameters : `error` (if an error occures, unless it will be `null`), and `store`, the current store instance.
 
         save: ( path = no, callback = no ) ->
             if not @hasChange

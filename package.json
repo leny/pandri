@@ -1,7 +1,7 @@
 {
   "name": "pandri",
   "description": "In-memory key/value store, with json file backup.",
-  "keywords": [],
+  "keywords": [ "json", "store", "datastore", "in-memory", "key", "value" ],
   "version": "0.0.1",
   "homepage": "https://github.com/Leny/pandri",
   "author": {
