@@ -5,6 +5,13 @@ module.exports = ( grunt ) ->
     require( "matchdep" ).filterDev( "grunt-*" ).forEach grunt.loadNpmTasks
 
     grunt.initConfig
+        clean: [ "test/expected" ]
+        copy:
+            test:
+                expand: yes
+                cwd: "test/fixtures/"
+                src: [ "**/*.json" ]
+                dest: "test/expected/"
         coffee:
             lib:
                 options:
@@ -28,12 +35,16 @@ module.exports = ( grunt ) ->
                 ]
                 tasks: [
                     "coffee"
-                    "jshint:lib"
-                    "nodeunit"
                 ]
+
+    grunt.registerTask "test", [
+        "clean"
+        "copy"
+        "nodeunit"
+    ]
 
     grunt.registerTask "default", [
         "coffee"
         "jshint"
-        "nodeunit"
+        "test"
     ]
