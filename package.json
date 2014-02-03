@@ -24,10 +24,10 @@
   ],
   "main": "lib/pandri",
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "grunt nodeunit"
+    "test": "grunt test"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.6",
