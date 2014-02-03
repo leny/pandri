@@ -141,7 +141,8 @@ The **pandri** lib is an unique file, the present `README.md` file, compiled in 
 
 ## Release History
 
-* **2014-02-02** : starting project.
+* **2014-02-02** : starting project
+* **2014-02-03** : version 0.1.0
 
 ## License
 Copyright (c) 2014 Leny
