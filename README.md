@@ -68,15 +68,14 @@ The parameters `path` and `callback`, if present, are used to make a direct call
 
             @load @path, callback if @path
 
-### store.load( [ path [, callback ] ] )
+### store.load( path [, callback ] )
 
 Load a json file inside the store.
-If the file doesn't exists, it will be create at the first call of `store.save()`. The `path` is stored in `store.path`.
+If the file doesn't exists, it will be create at the first call of `store.save()`.
+The `path` is stored in `store.path`.
 
-        load: ( path = no, callback = no ) ->
+        load: ( path, callback = no ) ->
             @path = path ? @path
-            if not fs.existsSync @path
-                return callback and callback new Error "The file at path '#{ @path }' doesn't exists !"
             readOptions =
                 encoding: "utf-8"
             fs.readFile @path, readOptions, ( err, rawContent ) =>
@@ -93,7 +92,7 @@ If the file doesn't exists, it will be create at the first call of `store.save()
 Return the value associated to the `key` in the store.
 
         get: ( key ) ->
-            _content[ key ] or null
+            _content[ key ] ? null
 
 ### store.set( key, value )
 
@@ -120,8 +119,8 @@ The save operation is only performed if `store.hasChange` is `true`
             if not @hasChange
                 return if not callback then yes else callback null, @
             @path = path ? @path
-            fs.writeFile @path, JSON.stringify( _content ), ( err ) ->
-                return callback and callback err  if err
+            fs.writeFile @path, JSON.stringify( _content ), ( err ) =>
+                return callback and callback err if err
                 @hasChange = no
                 callback and callback null, @
 
