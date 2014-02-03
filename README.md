@@ -16,11 +16,11 @@ started at 02/02/14
 
 > This README is a *literate coffeescript* file, containing the documentation AND the code.
 
-    fs = require "fs"
-
 All the stores are stored in a private variable called _stores, the *in-memory storage*. :)
 
     _stores = {}
+
+    fs = require "fs"
 
     module.exports = class Pandri
 
@@ -28,7 +28,7 @@ Private var that will stores the current content of the store.
 
         _content = {}
 
-### new Pandri( name [, path [, callback ] ] )
+### store = new Pandri( name [, path [, callback ] ] )
 
 Create and return a **pandri store** object.
 
