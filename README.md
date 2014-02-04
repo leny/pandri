@@ -108,10 +108,11 @@ The save operation is only performed if `store.hasChange` is `true`.
 The callback will receive two parameters : `error` (if an error occures, unless it will be `null`), and `store`, the current store instance.
 
         save: ( path = no, callback = no ) ->
+            callback = path if not callback and typeof path is "function"
             if not @hasChange
                 return if not callback then yes else callback null, @
-            @path = path ? @path
             fs.writeFile @path, JSON.stringify( _content ), ( err ) =>
+            @path = ( if typeof path is "string" then path else null ) ? @path
                 return callback and callback err if err
                 @hasChange = no
                 callback and callback null, @
