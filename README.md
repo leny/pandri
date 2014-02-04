@@ -138,6 +138,15 @@ If no store is found, return a new one.
         @get: ( name ) ->
             _stores[ name ] ?= new Pandri name
 
+### Pandri.clear( name )
+
+(**static method**) Remove a store from the memory.
+**Note:** only clear the object in the memory. The target file remains unchanged.
+
+        @clear: ( name ) ->
+            delete _stores[ name ]
+            
+
 ## Contributing
 
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality.
