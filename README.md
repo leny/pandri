@@ -28,7 +28,7 @@ All the stores are stored in a private variable called _stores, the *in-memory s
 
 Private var that will stores the current content of the store.
 
-        _content = {}
+        _content = null
 
 ### store = new Pandri( name [, path [, callback ] ] )
 
@@ -39,6 +39,8 @@ Create and return a **pandri store** object.
 Store the instance inside the in-memory storage.
 
             _stores[ @name ] = @
+            
+            _content = {}
 
 #### store.name
 
