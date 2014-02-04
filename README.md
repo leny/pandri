@@ -20,7 +20,9 @@ All the stores are stored in a private variable called _stores, the *in-memory s
 
     _stores = {}
 
-    fs = require "fs"
+    FS = require "fs"
+    Path = require "path"
+    mkdirp = require "mkdirp"
 
     module.exports = class Pandri
 
@@ -68,7 +70,7 @@ The callback will receive two parameters : `error` (if an error occures, unless 
             @path = path ? @path
             readOptions =
                 encoding: "utf-8"
-            fs.readFile @path, readOptions, ( err, rawContent ) =>
+            FS.readFile @path, readOptions, ( err, rawContent ) =>
                 return callback and callback( err ) if err
                 try
                     _content = JSON.parse rawContent
@@ -111,11 +113,13 @@ The callback will receive two parameters : `error` (if an error occures, unless 
             callback = path if not callback and typeof path is "function"
             if not @hasChange
                 return if not callback then yes else callback null, @
-            fs.writeFile @path, JSON.stringify( _content ), ( err ) =>
             @path = ( if typeof path is "string" then path else null ) ? @path
+            mkdirp Path.dirname( @path ), ( err ) =>
                 return callback and callback err if err
-                @hasChange = no
-                callback and callback null, @
+                FS.writeFile @path, JSON.stringify( _content ), ( err ) =>
+                    return callback and callback err if err
+                    @hasChange = no
+                    callback and callback null, @
 
 ### store.toJSON( [ beautify [, indentSize = 4 ] ] )
 
