@@ -9,7 +9,7 @@ exports[ "Pandri" ] = {
         done();
     },
 
-    "scenario one": function( test ) {
+    "scenario 1": function( test ) {
         var store = new Pandri( "test" );
 
         test.equal( store.name, "test", "should be 'test'." );
@@ -61,7 +61,7 @@ exports[ "Pandri" ] = {
         } );
     },
 
-    "scenario two": function( test ) {
+    "scenario 2": function( test ) {
         var store = new Pandri( "test", __dirname + "/expected/test.json", function( err, pandriStore ) {
             test.equal( err.errno, 34, "should be 34 (ENOENT)." );
             test.equal( err instanceof Error, true, "should be an error." );
@@ -76,7 +76,7 @@ exports[ "Pandri" ] = {
         } );
     },
 
-    "scenario three": function( test ) {
+    "scenario 3": function( test ) {
         var store = new Pandri( "test", __dirname + "/expected/test-one.json", function( err, pandriStore ) {
             test.equal( err, null, "should be null." );
 
@@ -107,7 +107,7 @@ exports[ "Pandri" ] = {
 
             test.equal( store.get( "fuu" ), null, "should be null." );
 
-            store.save( __dirname + "/expected/test-one.json", function( err, pandriStore ) {
+            store.save( function( err, pandriStore ) {
                 test.equal( err, null, "should be null." );
 
                 test.equal( pandriStore.get( "foo" ), "bar", "should be 'bar'." );
@@ -122,6 +122,40 @@ exports[ "Pandri" ] = {
                 test.equal( fs.existsSync( __dirname + "/expected/test-one.json" ), true, "should be true." );
 
                 test.equal( fs.readFileSync( __dirname + "/expected/test-one.json", { encoding: "utf-8" } ), '{"foo":"bar","bar":2,"baz":[1,2,3,4,5],"faa":true}', "content of the saved file should be the good json representation." );
+
+                test.done();
+            } );
+        } );
+    },
+
+    "scenario 4": function( test ) {
+        var store = new Pandri( "test", __dirname + "/expected/test-one.json", function( err, pandriStore ) {
+            test.equal( err, null, "should be null." );
+
+            test.equal( store.name, "test", "should be 'test'." );
+            test.equal( store.path, __dirname + "/expected/test-one.json", "should be the good path." );
+            test.equal( store.hasChange, false, "should be false." );
+
+            store.set( "faa", true );
+
+            test.equal( store.hasChange, true, "should be true." );
+            test.equal( pandriStore.get( "faa" ), true, "should be true." );
+
+            store.save( __dirname + "/expected/sub/sub/test-one.json", function( err, pandriStore ) {
+                test.equal( err, null, "should be null." );
+
+                test.equal( pandriStore.get( "foo" ), "bar", "should be 'bar'." );
+                test.equal( pandriStore.get( "bar" ), 2, "should be 2." );
+                test.deepEqual( pandriStore.get( "baz" ), [ 1, 2, 3, 4, 5 ], "should be [ 1, 2, 3, 4, 5 ]." );
+                test.equal( pandriStore.get( "fuu" ), null, "should be null." );
+                test.equal( pandriStore.get( "faa" ), true, "should be true." );
+
+                test.equal( store.hasChange, false, "should be false." );
+                test.equal( store.path, __dirname + "/expected/sub/sub/test-one.json", "should be the good path." );
+
+                test.equal( fs.existsSync( __dirname + "/expected/sub/sub/test-one.json" ), true, "should be true." );
+
+                test.equal( fs.readFileSync( __dirname + "/expected/sub/sub/test-one.json", { encoding: "utf-8" } ), '{"foo":"bar","bar":2,"baz":[1,2,3,4,5],"faa":true}', "content of the saved file should be the good json representation." );
 
                 test.done();
             } );
