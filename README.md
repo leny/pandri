@@ -94,7 +94,6 @@ Delete the `key` from the store.
 ### store.save( [ path [, callback ] ] )
 
 Store the data in the json `path`. The `path` is stored in `store.path`. If no path are given, the path from `store.path` is used.
-The save operation is only performed if `store.hasChange` is `true`.
 
 The callback will receive two parameters : `error` (if an error occures, unless it will be `null`), and `store`, the current store instance.
 
@@ -148,6 +147,10 @@ The **pandri** lib is an unique file, the present `README.md` file, compiled in 
     * Bugfixes
 * **2014-02-04** : version 0.1.2
     * Bugfixes
+* **2014-02-04** : version 0.1.3
+    * Remove `store.hasChange` property, saving at each call to `store.save()`
+    * Bugfixes
+
 
 ## License
 Copyright (c) 2014 Leny
