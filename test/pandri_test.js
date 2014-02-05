@@ -14,13 +14,11 @@ exports[ "Pandri" ] = {
 
         test.equal( store.name, "test1", "should be 'test1'." );
         test.equal( store.path, false, "should be false." );
-        test.equal( store.hasChange, false, "should be false." );
 
         test.equal( store.get( "foo" ), null, "should be null." );
 
         store.set( "foo", "bar" );
         test.equal( store.get( "foo" ), "bar", "should be 'bar'." );
-        test.equal( store.hasChange, true, "should be true." );
 
         store.set( "bar", 2 );
         test.equal( store.get( "bar" ), 2, "should be 2." );
@@ -50,7 +48,6 @@ exports[ "Pandri" ] = {
             test.deepEqual( pandriStore.get( "baz" ), [ 1, 2, 3, 4, 5 ], "should be [ 1, 2, 3, 4, 5 ]." );
             test.equal( pandriStore.get( "fuu" ), false, "should be false." );
 
-            test.equal( store.hasChange, false, "should be false." );
             test.equal( store.path, __dirname + "/expected/test-two.json", "should be the good path." );
 
             test.equal( fs.existsSync( __dirname + "/expected/test-two.json" ), true, "should be true." );
@@ -70,7 +67,6 @@ exports[ "Pandri" ] = {
 
             test.equal( store.name, "test2", "should be 'test2'." );
             test.equal( store.path, __dirname + "/expected/test.json", "should be the good path." );
-            test.equal( store.hasChange, false, "should be false." );
 
             test.done();
         } );
@@ -82,7 +78,6 @@ exports[ "Pandri" ] = {
 
             test.equal( store.name, "test3", "should be 'test3'." );
             test.equal( store.path, __dirname + "/expected/test-one.json", "should be the good path." );
-            test.equal( store.hasChange, false, "should be false." );
 
             test.equal( store.get( "foo" ), "bar", "should be 'bar'." );
             test.equal( store.get( "bar" ), 2, "should be 2." );
@@ -91,7 +86,6 @@ exports[ "Pandri" ] = {
 
             test.equal( pandriStore.name, "test3", "should be 'test3'." );
             test.equal( pandriStore.path, __dirname + "/expected/test-one.json", "should be the good path." );
-            test.equal( pandriStore.hasChange, false, "should be false." );
 
             test.equal( pandriStore.get( "foo" ), "bar", "should be 'bar'." );
             test.equal( pandriStore.get( "bar" ), 2, "should be 2." );
@@ -100,7 +94,6 @@ exports[ "Pandri" ] = {
 
             store.set( "faa", true );
 
-            test.equal( store.hasChange, true, "should be true." );
             test.equal( pandriStore.get( "faa" ), true, "should be true." );
 
             store.remove( "fuu" );
@@ -116,7 +109,6 @@ exports[ "Pandri" ] = {
                 test.equal( pandriStore.get( "fuu" ), null, "should be null." );
                 test.equal( pandriStore.get( "faa" ), true, "should be true." );
 
-                test.equal( store.hasChange, false, "should be false." );
                 test.equal( store.path, __dirname + "/expected/test-one.json", "should be the good path." );
 
                 test.equal( fs.existsSync( __dirname + "/expected/test-one.json" ), true, "should be true." );
@@ -134,11 +126,9 @@ exports[ "Pandri" ] = {
 
             test.equal( store.name, "test4", "should be 'test4'." );
             test.equal( store.path, __dirname + "/expected/test-one.json", "should be the good path." );
-            test.equal( store.hasChange, false, "should be false." );
 
             store.set( "faa", true );
 
-            test.equal( store.hasChange, true, "should be true." );
             test.equal( pandriStore.get( "faa" ), true, "should be true." );
 
             store.save( __dirname + "/expected/sub/sub/test-one.json", function( err, pandriStore ) {
@@ -150,7 +140,6 @@ exports[ "Pandri" ] = {
                 test.equal( pandriStore.get( "fuu" ), null, "should be null." );
                 test.equal( pandriStore.get( "faa" ), true, "should be true." );
 
-                test.equal( store.hasChange, false, "should be false." );
                 test.equal( store.path, __dirname + "/expected/sub/sub/test-one.json", "should be the good path." );
 
                 test.equal( fs.existsSync( __dirname + "/expected/sub/sub/test-one.json" ), true, "should be true." );
@@ -167,13 +156,11 @@ exports[ "Pandri" ] = {
 
         test.equal( store.name, "test5", "should be 'test5'." );
         test.equal( store.path, false, "should be false." );
-        test.equal( store.hasChange, false, "should be false." );
 
         test.equal( store.get( "foo" ), null, "should be null from creation." );
 
         store.set( "foo", "bar" );
         test.equal( store.get( "foo" ), "bar", "should be 'bar'." );
-        test.equal( store.hasChange, true, "should be true." );
 
         store.set( "bar", 2 );
         test.equal( store.get( "bar" ), 2, "should be 2." );
@@ -191,11 +178,21 @@ exports[ "Pandri" ] = {
         test.equal( restore.get( "foo" ), "bar", "should be 'bar'." );
         test.equal( restore.get( "bar" ), 2, "should be 2." );
 
-        restore = Pandri.get( "test5" );
+        store = Pandri.get( "test5" );
 
-        test.equal( restore.get( "foo" ), null, "should be null after clear." );
-        test.equal( restore.get( "bar" ), null, "should be null after clear." );
+        test.equal( store.get( "foo" ), null, "should be null after clear." );
+        test.equal( store.get( "bar" ), null, "should be null after clear." );
 
-        test.done();
+        store.save( __dirname + "/expected/sub/sub/test-five.json", function( err ) {
+            test.equal( err, null, "should be null." );
+
+            test.equal( store.path, __dirname + "/expected/sub/sub/test-five.json", "should be the good path." );
+
+            test.equal( fs.existsSync( __dirname + "/expected/sub/sub/test-five.json" ), true, "should be true." );
+
+            test.equal( fs.readFileSync( __dirname + "/expected/sub/sub/test-five.json", { encoding: "utf-8" } ), '{}', "content of the saved file should be the good json representation." );
+
+            test.done();
+        } );
     }
 };
