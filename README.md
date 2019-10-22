@@ -1,6 +1,6 @@
 # pandri
 
-![NPM version](http://img.shields.io/npm/v/pandri.svg) ![Build Status](http://img.shields.io/travis/leny/pandri.svg) ![Dependency Status](https://david-dm.org/leny/pandri.svg) ![Downloads counter](http://img.shields.io/npm/dm/pandri.svg)
+![NPM version](http://img.shields.io/npm/v/pandri.svg) ![Build Status](http://img.shields.io/travis/leny/pandri.svg) ![Dependency Status](https://david-dm.org/leny/pandri.svg) ![Downloads counter](http://img.shields.io/npm/dm/pandri.svg) [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 In-memory key/value store, with json file backup.
 
